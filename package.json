@@ -10,9 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^22.2.1",
+    "@react-native-firebase/messaging": "^22.2.1",
+    "@react-native/new-app-screen": "0.80.0",
     "react": "19.1.0",
-    "react-native": "0.80.0",
-    "@react-native/new-app-screen": "0.80.0"
+    "react-native": "0.80.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
