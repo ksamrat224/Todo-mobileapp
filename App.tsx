@@ -1,33 +1,13 @@
-import messaging from '@react-native-firebase/messaging';
-import { useEffect } from 'react';
-import { Alert, View, Text } from 'react-native';
+import React from 'react';
+import { ThemeProvider } from 'react-native-magnus';
+import LoginScreen from './src/LoginScreen';
 
-export default function App() {
-  useEffect(() => {
-    const getToken = async () => {
-      const authStatus = await messaging().requestPermission();
-      const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-      if (enabled) {
-        const token = await messaging().getToken();
-        console.log('FCM Token:', token);
-      }
-    };
-
-    getToken();
-
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('Foreground Notification', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-  }, []);
-
+const App = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notification Aayo Hai La</Text>
-    </View>
+    <ThemeProvider>
+      <LoginScreen />
+    </ThemeProvider>
   );
-}
+};
+
+export default App;
