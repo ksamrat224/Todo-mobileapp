@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>FCM Setup Done ✅</Text>
+      <Text>Notification Aayo Hai La</Text>
     </View>
   );
 }

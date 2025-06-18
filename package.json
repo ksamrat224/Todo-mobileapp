@@ -15,7 +15,8 @@
     "@react-native/new-app-screen": "0.80.0",
     "react": "19.1.0",
     "react-native": "0.80.0",
-    "react-native-magnus": "^1.0.63"
+    "react-native-magnus": "^1.0.63",
+    "react-native-safe-area-context": "^5.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
