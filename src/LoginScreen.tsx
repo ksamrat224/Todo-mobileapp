@@ -1,12 +1,35 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {  ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Text,Button, Div, Input } from 'react-native-magnus';
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const handleLogin=()=>{
+    console.log('Login pressed');
+    console.log('Email:', email);
+    console.log('Password:', password);
+  }
   return (
-    <View>
-      <Text>LoginScreen</Text>
-    </View>
-  )
-}
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <Div bg="white" flex={1} p="xl" justifyContent='center' alignItems='center'>
+        <Text fontSize="4xl" fontWeight="bold" mb="lg">Login</Text>
+        <Input placeholder="Email" value={email} onChangeText={(text:string)=>setEmail(text)} w="100%" mb="md" keyboardType='email-address' autoCapitalize='none' />
 
-export default LoginScreen
+        <Input placeholder="password" value={password} onChangeText={(text:string)=>setPassword(text)}
+        secureTextEntry
+        w="100%"
+        mb="lg"
+        p="md"
+        borderWidth={1}
+        rounded="md"/>
+
+        <Button block bg='blue600' onPress={handleLogin}>
+            Login
+        </Button>
+      </Div>
+    </ScrollView>
+  );
+};
+
+export default LoginScreen;
