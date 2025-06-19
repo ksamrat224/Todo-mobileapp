@@ -58,6 +58,14 @@ const LoginScreen = () => {
         <Button block bg="blue600" onPress={handleLogin}>
           Login
         </Button>
+        <Div row justifyContent="center" mt="lg">
+          <Text mr="sm">Don't have an account?</Text>
+          <TouchableOpacity onPress={() => console.log('Navigate to Sign Up')}>
+            <Text color="blue600" fontWeight="bold" style={{ textDecorationLine: 'underline' }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+          </Div>
       </Div>
     </ScrollView>
   );
