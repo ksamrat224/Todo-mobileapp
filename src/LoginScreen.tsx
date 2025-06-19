@@ -46,7 +46,7 @@ const LoginScreen = () => {
           suffix={
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               <Icon
-                name={showPassword ? 'eye-off' : 'eye'}
+                name={showPassword ? 'eye' : 'eye-off'}
                 fontFamily="Feather"
                 fontSize="xl"
                 color="gray600"
