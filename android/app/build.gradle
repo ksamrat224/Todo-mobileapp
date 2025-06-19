@@ -78,6 +78,7 @@ def enableProguardInReleaseBuilds = false
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
+    namespace 'com.firstproject'
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
@@ -114,6 +115,9 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+implementation 'androidx.core:core-ktx:1.12.0'
+
     implementation("com.facebook.react:react-android")
 
     if (hermesEnabled.toBoolean()) {
