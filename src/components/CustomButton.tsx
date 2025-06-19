@@ -1,11 +1,26 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { Button } from 'react-native-magnus'
 
-const CustomButton = () => {
+interface CustomButtonProps {
+  bg?: string;
+  onPress?: () => void;
+  content:string;
+  }
+
+const CustomButton = ({bg='#f49b33',onPress,content}:CustomButtonProps) => {
   return (
-    <View>
-      <Text>Button</Text>
-    </View>
+   <Button
+    h={50}
+    w="100%"
+    rounded="lg"
+    bg={bg}
+    onPress={onPress}
+    justifyContent='center'
+    alignItems='center'
+   >
+    {content}
+   </Button>
   )
 }
 
