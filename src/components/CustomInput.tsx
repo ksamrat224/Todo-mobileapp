@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Input = () => {
+const CustomInput = () => {
   return (
     <View>
       <Text>Input</Text>
@@ -9,4 +9,4 @@ const Input = () => {
   )
 }
 
-export default Input
+export default CustomInput
