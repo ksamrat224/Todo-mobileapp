@@ -1,14 +1,47 @@
-import { SafeAreaView, TouchableOpacity } from 'react-native';
-import React,{useState} from 'react';
+import { Alert, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import { Text, Div, StatusBar } from 'react-native-magnus';
 import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
+import { axiosInstance } from './utils/axiosInterceptor';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+
+  const registerUser = async () => {
+    // Here you can add the logic to handle user registration
+    console.log('User Registered:', { name, email, phone, password });
+    if (!name || !email || !phone || !password) {
+      Alert.alert('Please fill all fields');
+      return;
+    }
+    try {
+      const response = await axiosInstance.post('auth/register', {
+        name,
+        email,
+        phone,
+        password,
+      });
+      const token = response.data.token;
+      await AsyncStorage.setItem('token', token);
+      Alert.alert(
+        'Registration Successful',
+        'You have been registered successfully!',
+      );
+    } catch (error: any) {
+      console.log(error?.response?.data || error.message);
+      Alert.alert(
+        'Registration Failed',
+        error?.response?.data?.message ||
+          'An error occurred during registration.',
+      );
+    }
+  };
+
   return (
     <>
       <StatusBar backgroundColor={'#154360'} barStyle="light-content" />
@@ -24,11 +57,28 @@ const SignUp = () => {
             >
               SignUp Page
             </Text>
-            <CustomInput placeholder="Enter your name" />
-            <CustomInput placeholder="Enter your email" />
-            <CustomInput placeholder="Enter your phone number" />
-            <CustomInput placeholder="Enter your password" type="password" />
-            <CustomButton content="Sign Up" />
+            <CustomInput
+              placeholder="Enter your name"
+              value={name}
+              onChangeText={setName}
+            />
+            <CustomInput
+              placeholder="Enter your email"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <CustomInput
+              placeholder="Enter your phone number"
+              value={phone}
+              onChangeText={setPhone}
+            />
+            <CustomInput
+              placeholder="Enter your password"
+              type="password"
+              value={password}
+              onChangeText={setPassword}
+            />
+            <CustomButton content="Sign Up" onPress={registerUser} />
           </Div>
 
           <Div
