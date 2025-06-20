@@ -19,8 +19,7 @@ const CustomInput = ({
   const [showPassword,setShowPassword]=useState(false);
   const isPassword = type === 'password';
   const secureTextEntry = isPassword && !showPassword;
-  return
-  (
+  return(
   <Input
     placeholder={placeholder}
     value={value}
@@ -35,7 +34,7 @@ const CustomInput = ({
       isPassword && (
         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
           <Icon
-          name={showPassword ? 'eye-off' : 'eye'}
+          name={showPassword ? 'eye' : 'eye-off'}
           fontFamily='Ionicons'
           fontSize="lg"
           color="gray800"

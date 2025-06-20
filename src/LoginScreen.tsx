@@ -1,73 +1,32 @@
-import { ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { Text, Button, Div, Input, Icon } from 'react-native-magnus';
+import { SafeAreaView } from 'react-native';
+import React from 'react';
+import { Text, Div, StatusBar } from 'react-native-magnus';
+import CustomInput from './components/CustomInput';
+import CustomButton from './components/CustomButton';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const handleLogin = () => {
-    console.log('Login pressed');
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
+ 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <Div
-        bg="white"
-        flex={1}
-        p="xl"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Text fontSize="4xl" fontWeight="bold" mb="lg">
-          Login
-        </Text>
-        <Input
-          placeholder="Email"
-          value={email}
-          onChangeText={(text: string) => setEmail(text)}
-          w="100%"
-          mb="md"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+    <>
+   <StatusBar backgroundColor={'#154360'} barStyle="light-content"/>
+    <SafeAreaView>
+      <Div>
+        <Div>
+          <Text color='white' fontSize="4xl" fontWeight="bold" textAlign="center" mt="5">
+            Login Page
+          </Text>
+          <CustomInput placeholder='Enter your email'/>
+          <CustomInput
+            placeholder='Enter your password'
+            type='password'
+          />
+          <CustomButton content='Log In'/>
+        </Div>
 
-        <Input
-          placeholder="password"
-          value={password}
-          onChangeText={(text: string) => setPassword(text)}
-          secureTextEntry={!showPassword}
-          w="100%"
-          mb="lg"
-          p="md"
-          borderWidth={1}
-          rounded="md"
-          suffix={
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              <Icon
-                name={showPassword ? 'eye' : 'eye-off'}
-                fontFamily="Feather"
-                fontSize="xl"
-                color="gray600"
-              />
-            </TouchableOpacity>
-          }
-        />
-
-        <Button block bg="blue600" onPress={handleLogin}>
-          Login
-        </Button>
-        <Div row justifyContent="center" mt="lg">
-          <Text mr="sm">Don't have an account?</Text>
-          <TouchableOpacity onPress={() => console.log('Navigate to Sign Up')}>
-            <Text color="blue600" fontWeight="bold" style={{ textDecorationLine: 'underline' }}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-          </Div>
       </Div>
-    </ScrollView>
+    </SafeAreaView>
+    </>
+      
   );
 };
 
