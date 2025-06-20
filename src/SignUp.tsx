@@ -1,10 +1,14 @@
 import { SafeAreaView, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 import { Text, Div, StatusBar } from 'react-native-magnus';
 import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
 
 const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <>
       <StatusBar backgroundColor={'#154360'} barStyle="light-content" />
