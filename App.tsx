@@ -4,6 +4,7 @@ import LoginScreen from './src/LoginScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import CustomInput from './src/components/CustomInput';
+import SignUp from './src/SignUp';
 
 const App = () => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const App = () => {
   }, []);
   return (
     <ThemeProvider>
-      <LoginScreen/>
+      <SignUp />
     </ThemeProvider>
   );
 };
