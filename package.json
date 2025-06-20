@@ -13,6 +13,7 @@
     "@react-native-firebase/app": "^22.1.0",
     "@react-native-firebase/messaging": "^22.1.0",
     "@react-native/new-app-screen": "0.80.0",
+    "axios": "^1.10.0",
     "react": "19.1.0",
     "react-native": "0.80.0",
     "react-native-magnus": "^1.0.63",
