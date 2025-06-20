@@ -20,7 +20,7 @@ const LoginScreen = () => {
             >
               Login Page
             </Text>
-            <CustomInput placeholder="Enter your email" />
+            <CustomInput placeholder="Enter your email or phone number" />
             <CustomInput placeholder="Enter your password" type="password" />
             <CustomButton content="Log In" />
           </Div>

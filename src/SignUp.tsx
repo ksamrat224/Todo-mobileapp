@@ -20,7 +20,9 @@ const SignUp = () => {
             >
               SignUp Page
             </Text>
+            <CustomInput placeholder="Enter your name" />
             <CustomInput placeholder="Enter your email" />
+            <CustomInput placeholder="Enter your phone number" />
             <CustomInput placeholder="Enter your password" type="password" />
             <CustomButton content="Sign Up" />
           </Div>
