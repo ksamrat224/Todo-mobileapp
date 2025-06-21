@@ -10,6 +10,10 @@ const LoginScreen = () => {
   const[email, setEmail] = React.useState('');
   const[password, setPassword] = React.useState('');
   const [mobile, setMobile] = React.useState('');
+ 
+  const handleLogin = () => {
+  }
+
   return (
     <>
       <StatusBar backgroundColor={'#154360'} barStyle="light-content" />
@@ -34,7 +38,7 @@ const LoginScreen = () => {
             value={password}
             onChangeText={setPassword}
             />
-            <CustomButton content="Log In" />
+            <CustomButton content="Log In"  onPress={handleLogin}/>
           </Div>
           <Div w={'100%'} flexDir='row' alignItems='center' justifyContent='center' pt={10} >
           <Text>Don't have an account?{" "}</Text>
