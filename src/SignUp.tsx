@@ -5,8 +5,10 @@ import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
 import { axiosInstance } from './utils/axiosInterceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp = () => {
+  const navigation = useNavigation<any>();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -28,10 +30,7 @@ const SignUp = () => {
       });
       const token = response.data.token;
       await AsyncStorage.setItem('token', token);
-      Alert.alert(
-        'Registration Successful',
-        'You have been registered successfully!',
-      );
+     navigation.navigate('Home');
     } catch (error: any) {
       console.log(error?.response?.data || error.message);
       Alert.alert(
@@ -89,7 +88,7 @@ const SignUp = () => {
             pt={10}
           >
             <Text>Already a user? </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text color="red600" fontWeight="bold" textDecorLine="underline">
                 Sign In
               </Text>
