@@ -1,17 +1,38 @@
-import { SafeAreaView, TouchableOpacity } from 'react-native';
+import { Alert, SafeAreaView, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Text, Div, StatusBar } from 'react-native-magnus';
 import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { axiosInstance } from './utils/axiosInterceptor';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
-  const[email, setEmail] = React.useState('');
   const[password, setPassword] = React.useState('');
-  const [mobile, setMobile] = React.useState('');
+  const [username, setUsername] = React.useState('');
  
-  const handleLogin = () => {
+  const handleLogin =async () => {
+    if (!username || !password) {
+      Alert.alert('Please fill all fields');
+      return;
+    }
+    try {
+      const response = await axiosInstance.post('auth/login', {
+        username,
+        password,
+      });
+      const token = response.data.token;
+      await AsyncStorage.setItem('token', token);
+      navigation.navigate('Home');
+    } catch (error: any) {
+      console.log(error?.response?.data || error.message);
+      Alert.alert(
+        'Login Failed',
+        error?.response?.data?.message ||
+          'An error occurred during login.',
+      );
+    }
   }
 
   return (
@@ -31,8 +52,8 @@ const LoginScreen = () => {
             </Text>
             <CustomInput 
             placeholder="Enter your email or phone number" 
-            value={email|| mobile}
-            onChangeText={setEmail|| setMobile}
+            value={username}
+            onChangeText={setUsername}
             />
             <CustomInput placeholder="Enter your password" type="password" 
             value={password}
