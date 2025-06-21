@@ -3,8 +3,10 @@ import React from 'react';
 import { Text, Div, StatusBar } from 'react-native-magnus';
 import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const navigation = useNavigation<any>();
   return (
     <>
       <StatusBar backgroundColor={'#154360'} barStyle="light-content" />
@@ -26,7 +28,7 @@ const LoginScreen = () => {
           </Div>
           <Div w={'100%'} flexDir='row' alignItems='center' justifyContent='center' pt={10} >
           <Text>Don't have an account?{" "}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Text color="red600" fontWeight="bold" textDecorLine='underline'>
               Sign Up
             </Text>
