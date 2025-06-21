@@ -22,7 +22,9 @@ const LoginScreen = () => {
         username,
         password,
       });
+      console.log('Login Response:', response.data);
       const token = response.data.token;
+     
       await AsyncStorage.setItem('token', token);
       navigation.navigate('Home');
     } catch (error: any) {
