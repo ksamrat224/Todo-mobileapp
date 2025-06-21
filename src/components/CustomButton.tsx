@@ -6,9 +6,11 @@ interface CustomButtonProps {
   bg?: string;
   onPress?: () => void;
   content:string;
+  loading?: boolean;
+  disabled?: boolean;
   }
 
-const CustomButton = ({bg='#f49b33',onPress,content}:CustomButtonProps) => {
+const CustomButton = ({bg='#f49b33',onPress,content,loading=false,disabled=false}:CustomButtonProps) => {
   return (
    <Button
     h={50}
@@ -18,6 +20,8 @@ const CustomButton = ({bg='#f49b33',onPress,content}:CustomButtonProps) => {
     onPress={onPress}
     justifyContent='center'
     alignItems='center'
+    loading={loading}
+    disabled={disabled}
    >
     {content}
    </Button>

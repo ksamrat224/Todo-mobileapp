@@ -10,6 +10,8 @@ import Home from './src/Home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import { ActivityIndicator, View } from 'react-native';
+import AddTodoScreen from './src/AddTodoScreen';
+import EditTodoScreen from './src/EditTodoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +57,8 @@ const App = () => {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="AddTodo" component={AddTodoScreen} />
+          <Stack.Screen name="EditTodo" component={EditTodoScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
