@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
+  const[email, setEmail] = React.useState('');
+  const[password, setPassword] = React.useState('');
+  const [mobile, setMobile] = React.useState('');
   return (
     <>
       <StatusBar backgroundColor={'#154360'} barStyle="light-content" />
@@ -22,8 +25,15 @@ const LoginScreen = () => {
             >
               Login Page
             </Text>
-            <CustomInput placeholder="Enter your email or phone number" />
-            <CustomInput placeholder="Enter your password" type="password" />
+            <CustomInput 
+            placeholder="Enter your email or phone number" 
+            value={email|| mobile}
+            onChangeText={setEmail|| setMobile}
+            />
+            <CustomInput placeholder="Enter your password" type="password" 
+            value={password}
+            onChangeText={setPassword}
+            />
             <CustomButton content="Log In" />
           </Div>
           <Div w={'100%'} flexDir='row' alignItems='center' justifyContent='center' pt={10} >
