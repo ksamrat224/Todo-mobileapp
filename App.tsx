@@ -13,6 +13,8 @@ import { ActivityIndicator, View } from 'react-native';
 import AddTodoScreen from './src/AddTodoScreen';
 import EditTodoScreen from './src/EditTodoScreen';
 
+import { navigationRef } from './src/NavigationService'; // ✅ import the ref
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -49,7 +51,7 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           initialRouteName={initialRoute}
           screenOptions={{ headerShown: false }}
@@ -58,7 +60,7 @@ const App = () => {
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="AddTodo" component={AddTodoScreen} />
-          <Stack.Screen name="EditTodo" component={EditTodoScreen}/>
+          <Stack.Screen name="EditTodo" component={EditTodoScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
