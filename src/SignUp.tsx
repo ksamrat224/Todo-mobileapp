@@ -6,6 +6,10 @@ import CustomButton from './components/CustomButton';
 import { axiosInstance } from './utils/axiosInterceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import * as Keychain from 'react-native-keychain';
+import ReactNativeBiometrics from 'react-native-biometrics';
+
+const rnBiometrics = new ReactNativeBiometrics();
 
 const SignUp = () => {
   const navigation = useNavigation<any>();
@@ -14,13 +18,36 @@ const SignUp = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
 
+  const saveTokenWithBiometrics = async (token: string) => {
+    const { available } = await rnBiometrics.isSensorAvailable();
+
+    if (available) {
+      const enable = await new Promise<boolean>(resolve => {
+        Alert.alert(
+          'Enable Biometric Login?',
+          'Do you want to use fingerprint or Face ID next time to login?',
+          [
+            { text: 'No', onPress: () => resolve(false), style: 'cancel' },
+            { text: 'Yes', onPress: () => resolve(true) },
+          ]
+        );
+      });
+
+      if (enable) {
+        await Keychain.setGenericPassword('biometric', token, {
+          accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET,
+          accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED,
+        });
+      }
+    }
+  };
+
   const registerUser = async () => {
-    // Here you can add the logic to handle user registration
-    console.log('User Registered:', { name, email, phone, password });
     if (!name || !email || !phone || !password) {
       Alert.alert('Please fill all fields');
       return;
     }
+
     try {
       const response = await axiosInstance.post('auth/register', {
         name,
@@ -28,9 +55,11 @@ const SignUp = () => {
         phone,
         password,
       });
+
       const token = response.data.token;
       await AsyncStorage.setItem('token', token);
-     navigation.navigate('Home');
+      await saveTokenWithBiometrics(token);
+      navigation.navigate('Home');
     } catch (error: any) {
       console.log(error?.response?.data || error.message);
       Alert.alert(

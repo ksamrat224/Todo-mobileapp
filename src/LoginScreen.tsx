@@ -18,12 +18,11 @@ const LoginScreen = () => {
   const [isBiometricSupported, setIsBiometricSupported] = React.useState(false);
 
   React.useEffect(() => {
-   rnBiometrics.isSensorAvailable().then(result => {
-  if (result.available && result.biometryType !== null) {
-    setIsBiometricSupported(true);
-  }
-});
-
+    rnBiometrics.isSensorAvailable().then(result => {
+      if (result.available && result.biometryType !== null) {
+        setIsBiometricSupported(true);
+      }
+    });
   }, []);
 
   const handleLogin = async () => {
@@ -36,10 +35,16 @@ const LoginScreen = () => {
         username,
         password,
       });
-      console.log('Login Response:', response.data);
       const token = response.data.token;
 
       await AsyncStorage.setItem('token', token);
+
+      // Save token with biometric protection
+      await keychain.setGenericPassword('biometric', token, {
+        accessControl: keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET,
+        accessible: keychain.ACCESSIBLE.WHEN_UNLOCKED,
+      });
+
       navigation.navigate('Home');
     } catch (error: any) {
       console.log(error?.response?.data || error.message);
@@ -49,6 +54,7 @@ const LoginScreen = () => {
       );
     }
   };
+
   const handleFingerprintLogin = async () => {
     try {
       const credentials = await keychain.getGenericPassword({
@@ -109,6 +115,7 @@ const LoginScreen = () => {
                   <Div row alignItems="center">
                     <Icon
                       name="fingerprint"
+                      fontFamily="MaterialIcons"
                       fontSize="2xl"
                       color="white"
                       mr={10}
