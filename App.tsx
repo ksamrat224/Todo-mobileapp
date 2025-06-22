@@ -13,17 +13,25 @@ import { ActivityIndicator, View } from 'react-native';
 import AddTodoScreen from './src/AddTodoScreen';
 import EditTodoScreen from './src/EditTodoScreen';
 
-import { navigationRef } from './src/NavigationService'; // ✅ import the ref
+import { navigationRef } from './src/NavigationService'; 
+import NotificationHandler from './src/NotificationHandler';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initialRoute, setInitialRoute] = useState<string | null>(null);
 
+  const getToken =async() => {
+    const token = await messaging().getToken();
+    console.log('FCM Token:', token);
+  };
+
   useEffect(() => {
     SplashScreen?.hide?.();
     const init = async () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
+      await getToken();
       const token = await AsyncStorage.getItem('token');
       if (token) {
         try {
@@ -52,6 +60,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <NavigationContainer ref={navigationRef}>
+        <NotificationHandler/>
         <Stack.Navigator
           initialRouteName={initialRoute}
           screenOptions={{ headerShown: false }}
