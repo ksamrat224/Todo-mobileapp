@@ -22,6 +22,7 @@
     "react-native": "0.80.0",
     "react-native-biometrics": "^3.0.1",
     "react-native-gesture-handler": "^2.26.0",
+    "react-native-keychain": "^10.0.0",
     "react-native-magnus": "^1.0.63",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "^5.5.0",
