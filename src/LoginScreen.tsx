@@ -1,15 +1,15 @@
 import { Alert, SafeAreaView, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Text, Div, StatusBar } from 'react-native-magnus';
+import { Text, Div, StatusBar, Icon } from 'react-native-magnus';
 import CustomInput from './components/CustomInput';
 import CustomButton from './components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { axiosInstance } from './utils/axiosInterceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ReactNativeBiometrices from 'react-native-biometrics';
 import * as keychain from 'react-native-keychain';
+import ReactNativeBiometrics from 'react-native-biometrics';
 
-const rnBiometrices = new ReactNativeBiometrices();
+const rnBiometrics = new ReactNativeBiometrics();
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
@@ -18,11 +18,12 @@ const LoginScreen = () => {
   const [isBiometricSupported, setIsBiometricSupported] = React.useState(false);
 
   React.useEffect(() => {
-    rnBiometrices.isSensorAvailable().then(resultObject => {
-      if (resultObject.available && resultObject.biometryType !== null) {
-        setIsBiometricSupported(true);
-      }
-    });
+   rnBiometrics.isSensorAvailable().then(result => {
+  if (result.available && result.biometryType !== null) {
+    setIsBiometricSupported(true);
+  }
+});
+
   }, []);
 
   const handleLogin = async () => {
@@ -49,20 +50,23 @@ const LoginScreen = () => {
     }
   };
   const handleFingerprintLogin = async () => {
-    try{
+    try {
       const credentials = await keychain.getGenericPassword({
-      authenticationPrompt:{
-        title: 'Authentication Required',
-        subtitle: 'Please authenticate to log in',
-        description: 'Use your fingerprint to log in',
-      },
+        authenticationPrompt: {
+          title: 'Authentication Required',
+          subtitle: 'Please authenticate to log in',
+          description: 'Use your fingerprint to log in',
+        },
       });
-      if(credentials) {
+      if (credentials) {
         const token = credentials.password;
         await AsyncStorage.setItem('token', token);
         navigation.navigate('Home');
       } else {
-        Alert.alert('No credentials found', 'Please log in with your username and password first.');
+        Alert.alert(
+          'No credentials found',
+          'Please log in with your username and password first.',
+        );
       }
     } catch (error) {
       Alert.alert('Biometric Authentication Failed');
@@ -96,6 +100,26 @@ const LoginScreen = () => {
               onChangeText={setPassword}
             />
             <CustomButton content="Log In" onPress={handleLogin} />
+            {isBiometricSupported && (
+              <Div mt="xl" alignItems="center">
+                <TouchableOpacity
+                  onPress={handleFingerprintLogin}
+                  activeOpacity={0.7}
+                >
+                  <Div row alignItems="center">
+                    <Icon
+                      name="fingerprint"
+                      fontSize="2xl"
+                      color="white"
+                      mr={10}
+                    />
+                    <Text color="white" fontSize="lg">
+                      Login with Fingerprint
+                    </Text>
+                  </Div>
+                </TouchableOpacity>
+              </Div>
+            )}
           </Div>
           <Div
             w={'100%'}
