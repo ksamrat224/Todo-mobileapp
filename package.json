@@ -20,8 +20,10 @@
     "jwt-decode": "^4.0.0",
     "react": "19.1.0",
     "react-native": "0.80.0",
+    "react-native-gesture-handler": "^2.26.0",
     "react-native-magnus": "^1.0.63",
-    "react-native-safe-area-context": "^5.4.1",
+    "react-native-reanimated": "^3.18.0",
+    "react-native-safe-area-context": "^5.5.0",
     "react-native-screens": "^4.11.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^10.2.0"
