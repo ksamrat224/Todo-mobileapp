@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ActivityIndicator, View } from 'react-native';
 import AddTodoScreen from './src/AddTodoScreen';
 import EditTodoScreen from './src/EditTodoScreen';
+import ChatScreen from './src/components/ChatScreen';
 
 import { navigationRef } from './src/NavigationService'; 
 import NotificationHandler from './src/NotificationHandler';
@@ -70,6 +71,7 @@ const App = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="AddTodo" component={AddTodoScreen} />
           <Stack.Screen name="EditTodo" component={EditTodoScreen} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
