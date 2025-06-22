@@ -6,11 +6,23 @@ import CustomButton from './components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { axiosInstance } from './utils/axiosInterceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ReactNativeBiometrices from 'react-native-biometrics';
+
+const rnBiometrices = new ReactNativeBiometrices();
 
 const LoginScreen = () => {
-  const navigation = useNavigation<any>();
+ const navigation = useNavigation<any>();
   const[password, setPassword] = React.useState('');
   const [username, setUsername] = React.useState('');
+  const [isBiometricSupported, setIsBiometricSupported] = React.useState(false);
+
+  React.useEffect(()=>{
+    rnBiometrices.isSensorAvailable().then(resultObject => {
+      if(resultObject.available && resultObject.biometryType !== null){
+        setIsBiometricSupported(true);
+      }
+  });
+  }, []);
  
   const handleLogin =async () => {
     if (!username || !password) {
